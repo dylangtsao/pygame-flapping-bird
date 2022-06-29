@@ -1,2 +1,2 @@
-# pygame-flapping-bird
-Implementation of a simple game of flapping bird using pygame.
+# pygame-flappy-bird
+Implementation of a simple game of flappy bird using pygame.
