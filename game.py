@@ -3,7 +3,8 @@ import pygame, sys, random
 
 pygame.init()
 
-size = (width, height) = 450, 700
+size = (width, height) = 478,639
+(width,height) = 478,639
 screen = pygame.display.set_mode(size)
 
 ground_scroll = 0
@@ -28,8 +29,11 @@ main_sprite.add(main)
 clock = pygame.time.Clock()
 bgc = (135,206,235)
 
-bg = pygame.image.load("background2.jpeg")
-bg = pygame.transform.scale(bg, (450,700))
+bg = pygame.image.load("background3.png")
+bg = pygame.transform.scale(bg, (500,560))
+ground = pygame.image.load("ground.png")
+ground = pygame.transform.scale(ground, (520,76))
+
 
 
 def gameOver():
@@ -40,9 +44,12 @@ def gameOver():
 while True:
     clock.tick(60)
     screen.blit(bg, (0,0))
+    screen.blit(ground, (ground_scroll,560))
     main_sprite.draw(screen)
 
-    screen.blit(bg, (scroll_speed,700))
+    ground_scroll -= scroll_speed
+    if abs(ground_scroll) > 20:
+        ground_scroll = 0
 
 
     key = pygame.key.get_pressed()
@@ -55,7 +62,7 @@ while True:
     if main.rect.top < 0:
         speed[1] = 0
     speed[1] += gravity
-    main.rect = main.rect.move(speed)
+    ##main.rect = main.rect.move(speed)
     pygame.display.flip()
 
     for event in pygame.event.get():
