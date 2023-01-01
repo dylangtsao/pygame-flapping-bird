@@ -23,11 +23,14 @@ class MainCharacter(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         self.rect.center = (width/4, height/2)
-    def update(self, is_true):
-        if is_true:
-            new_image = pygame.transform.rotate(self.image, 30)
-        else:
-            new_image = pygame.transform.rotate(self.image, -60)
+    def update(self):
+        #if is_true:
+        #    new_image = pygame.transform.rotate(self.image, 30)
+        #else:
+        #    new_image = pygame.transform.rotate(self.image, -60)
+        
+        new_image = pygame.transform.rotate(self.image, speed[1])
+
         old_center = self.rect.center
         self.image = new_image
         self.rect = self.image.get_rect()
@@ -75,16 +78,17 @@ ground = pygame.transform.scale(ground, (520,76))
 def gameOver():
     speed[1] = 0
     ##text = pygame.font.Font('Times New Roman', 40)
-    
+       
 is_rotated = False
 
 while True:
     clock.tick(60)
-    main_sprite.draw(screen)
-    obstacle_group.draw(screen)
+    
+    #obstacle_group.draw(screen)
     screen.blit(bg, (0,0))
     screen.blit(ground, (ground_scroll,560))
     
+    main_sprite.draw(screen)
 
     ##scrolling background
     ground_scroll -= scroll_speed
@@ -96,7 +100,7 @@ while True:
 
     ##sprite rotation 
     if speed[1]<0 and is_rotated == False:
-        bird .update(True)
+        bird.update()
         is_rotated = True
     ##if speed[1]>0 and is_rotated == True:
     ##   main.update(False)
@@ -115,7 +119,7 @@ while True:
     speed[1] += gravity
     bird.rect = bird.rect.move(speed)
     pygame.display.flip()
-
+    main_sprite.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
